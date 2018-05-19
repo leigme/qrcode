@@ -20,11 +20,15 @@ abstract class BaseFragment constructor(protected val title: String = BaseFragme
 
         val fragment = inflater!!.inflate(getLayoutId(), container, false)
 
+        initViews(fragment, savedInstanceState)
+
         return fragment
 
     }
 
     abstract fun getLayoutId(): Int
+
+    abstract fun initViews(view: View, savedInstanceState: Bundle?)
 
     protected fun goToFragment(baseFragment: BaseFragment) {
         val bundle = baseFragment.arguments

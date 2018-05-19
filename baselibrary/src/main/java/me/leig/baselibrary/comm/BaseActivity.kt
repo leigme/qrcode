@@ -17,24 +17,28 @@ abstract class BaseActivity constructor(protected val title: String = BaseActivi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(getLayoutId())
 
-        if (0 < getFragmentId() && null != getFragment()) {
+        if (null != getFragment() && 0 < getFragmentId()) {
 
             val ft = fragmentManager.beginTransaction()
 
             ft.add(getFragmentId(), getFragment()!!)
 
             ft.commit()
-
         }
+
+        initViews(this)
 
     }
 
     abstract fun getLayoutId(): Int
 
+    abstract fun getFragment(): BaseFragment?
+
     abstract fun getFragmentId(): Int
 
-    abstract fun getFragment(): BaseFragment?
+    abstract fun initViews(baseActivity: BaseActivity)
 
 }
