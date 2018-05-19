@@ -20,7 +20,7 @@ class MainActivity : BaseActivity() {
 
     override fun initViews(baseActivity: BaseActivity) {
         val scanManager = ScanManager(this)
-        scanManager.integrator.initiateScan()
+        scanManager.start()
     }
 
 }

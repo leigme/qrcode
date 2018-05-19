@@ -31,7 +31,7 @@ abstract class BaseFragment constructor(protected val title: String = BaseFragme
     abstract fun initViews(view: View, savedInstanceState: Bundle?)
 
     protected fun goToFragment(baseFragment: BaseFragment) {
-        val bundle = baseFragment.arguments
+//        val bundle = baseFragment.arguments
 
     }
 
