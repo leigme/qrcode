@@ -6,26 +6,26 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="SwitchLight"
-        android:id="@+id/btn_switch"
-        android:layout_marginBottom="20dp"
-        android:background="#7f383838"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
-
     <!--该控件就是扫描view-->
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:id="@+id/dbv_custom"
         app:zxing_framing_rect_width="250dp"
         app:zxing_framing_rect_height="250dp"
         app:zxing_preview_scaling_strategy="fitXY"
         app:zxing_use_texture_view="true">
-
     </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/switch_light"
+        android:id="@+id/btn_switch"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#7f383838" />
+
 </LinearLayout>

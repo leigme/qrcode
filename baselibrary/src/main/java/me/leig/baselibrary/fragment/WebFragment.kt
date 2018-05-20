@@ -5,10 +5,10 @@ import android.view.View
 import me.leig.baselibrary.R
 import me.leig.baselibrary.comm.BaseFragment
 import me.leig.baselibrary.comm.Constant
-import me.leig.baselibrary.view.CustomWeb
+import me.leig.baselibrary.view.CustomWebView
 
 /**
- *
+ * 自定义WebFragment
  *
  * @author leig
  * @version 20171231
@@ -27,9 +27,13 @@ class WebFragment: BaseFragment(WebFragment::class.java.name) {
 
     override fun initViews(view: View, savedInstanceState: Bundle?) {
         val bundle = arguments
-        val url = bundle.getString("URL")
-        val cwc = view.findViewById(R.id.cw_content) as CustomWeb
-        cwc.loadUrl(url)
+        if (null != bundle) {
+            val url = bundle.getString("URL")
+            if (null != url && "" != url) {
+                val cwc = view.findViewById(R.id.cw_content) as CustomWebView
+                cwc.loadUrl(url)
+            }
+        }
     }
 
 }

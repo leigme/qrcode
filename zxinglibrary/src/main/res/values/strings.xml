@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ZXing Library</string>
+    <string name="switch_light">闪光灯</string>
 </resources>

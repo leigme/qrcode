@@ -9,12 +9,11 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
-import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 
 /**
- *
+ * 二维码扫描视图
  *
  * @author leig
  * @version 20171231
