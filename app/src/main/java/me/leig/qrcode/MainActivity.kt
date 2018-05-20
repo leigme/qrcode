@@ -17,12 +17,12 @@ class MainActivity : BaseActivity() {
             val bundle = Bundle()
             mainFragment.arguments = bundle
         }
-        mainFragment.arguments.putInt(Constant.CONTENT_ID, R.id.fl_main)
+        mainFragment.arguments.putInt(Constant.CONTENT_ID, R.id.fl_container)
         return mainFragment
     }
 
     override fun getFragmentId(): Int {
-        return R.id.fl_main
+        return R.id.fl_container
     }
 
     override fun initViews(baseActivity: BaseActivity) {

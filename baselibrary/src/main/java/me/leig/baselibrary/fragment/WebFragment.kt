@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import me.leig.baselibrary.R
 import me.leig.baselibrary.comm.BaseFragment
+import me.leig.baselibrary.comm.Constant
 import me.leig.baselibrary.view.CustomWeb
 
 /**
@@ -15,6 +16,10 @@ import me.leig.baselibrary.view.CustomWeb
  */
 
 class WebFragment: BaseFragment(WebFragment::class.java.name) {
+
+    override fun getContainerId(): Int {
+        return arguments.getInt(Constant.CONTENT_ID)
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_web

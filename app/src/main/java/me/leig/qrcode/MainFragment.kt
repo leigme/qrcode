@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_content.view.*
+import kotlinx.android.synthetic.main.fragment_container.view.*
 import me.leig.baselibrary.comm.BaseFragment
+import me.leig.baselibrary.comm.Constant
 import me.leig.baselibrary.fragment.WebFragment
 import me.leig.zxinglibrary.ScanManager
 
@@ -24,8 +25,12 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), ListItemListene
 
     private val dataList = mutableListOf<String>()
 
+    override fun getContainerId(): Int {
+        return arguments.getInt(Constant.CONTENT_ID)
+    }
+
     override fun getLayoutId(): Int {
-        return R.layout.fragment_content
+        return R.layout.fragment_container
     }
 
     override fun initViews(view: View, savedInstanceState: Bundle?) {
@@ -64,7 +69,6 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), ListItemListene
     override fun itemOnClickListener(view: View, position: Int) {
         Toast.makeText(activity, "点击的是: $position, 内容是: ${dataList[position]}", Toast.LENGTH_SHORT).show()
         val web = WebFragment()
-
         val bundle = Bundle()
         bundle.putString("URL", dataList[position])
         web.arguments = bundle

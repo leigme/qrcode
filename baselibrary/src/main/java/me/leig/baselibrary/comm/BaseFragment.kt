@@ -18,13 +18,15 @@ abstract class BaseFragment constructor(protected val title: String = BaseFragme
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        val fragment = inflater!!.inflate(getLayoutId(), container, false)
+        val view = inflater!!.inflate(getLayoutId(), container, false)
 
-        initViews(fragment, savedInstanceState)
+        initViews(view, savedInstanceState)
 
-        return fragment
+        return view
 
     }
+
+    abstract fun getContainerId(): Int
 
     abstract fun getLayoutId(): Int
 
@@ -33,7 +35,7 @@ abstract class BaseFragment constructor(protected val title: String = BaseFragme
     protected fun goToFragment(baseFragment: BaseFragment) {
         activity.fragmentManager
                 .beginTransaction()
-                .replace(baseFragment.arguments.getInt(Constant.CONTENT_ID), baseFragment)
+                .replace(getContainerId(), baseFragment)
                 .addToBackStack(null)
                 .commit()
     }
