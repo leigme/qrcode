@@ -1,8 +1,9 @@
 package me.leig.qrcode
 
+import android.os.Bundle
 import me.leig.baselibrary.comm.BaseActivity
 import me.leig.baselibrary.comm.BaseFragment
-import me.leig.zxinglibrary.ScanManager
+import me.leig.baselibrary.comm.Constant
 
 class MainActivity : BaseActivity() {
 
@@ -11,16 +12,21 @@ class MainActivity : BaseActivity() {
     }
 
     override fun getFragment(): BaseFragment? {
-        return null
+        val mainFragment = MainFragment()
+        if (null == mainFragment.arguments) {
+            val bundle = Bundle()
+            mainFragment.arguments = bundle
+        }
+        mainFragment.arguments.putInt(Constant.CONTENT_ID, R.id.fl_main)
+        return mainFragment
     }
 
     override fun getFragmentId(): Int {
-        return 0
+        return R.id.fl_main
     }
 
     override fun initViews(baseActivity: BaseActivity) {
-        val scanManager = ScanManager(this)
-        scanManager.start()
+        addFragment(this.getFragment()!!)
     }
 
 }

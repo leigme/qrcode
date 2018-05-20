@@ -31,8 +31,11 @@ abstract class BaseFragment constructor(protected val title: String = BaseFragme
     abstract fun initViews(view: View, savedInstanceState: Bundle?)
 
     protected fun goToFragment(baseFragment: BaseFragment) {
-//        val bundle = baseFragment.arguments
-
+        activity.fragmentManager
+                .beginTransaction()
+                .replace(baseFragment.arguments.getInt(Constant.CONTENT_ID), baseFragment)
+                .addToBackStack(null)
+                .commit()
     }
 
 }
