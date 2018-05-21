@@ -9,6 +9,10 @@ package me.leig.baselibrary.comm
  */
 
 object Constant {
+
     @JvmStatic
     val CONTENT_ID = "contentId"
+
+    @JvmStatic
+    val DOWNLOAD_NUM = 5
 }

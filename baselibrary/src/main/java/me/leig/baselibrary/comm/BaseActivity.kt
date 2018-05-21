@@ -49,43 +49,4 @@ abstract class BaseActivity constructor(protected val title: String = BaseActivi
                     .commit()
         }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        val fm = supportFragmentManager
-        var index = requestCode shr 16
-        if (0 != index) {
-            index--
-            if (fm.fragments == null || 0 > index || fm.fragments.size <= index) {
-                Log.w(title, "Activity result fragment index out of range: 0x" + Integer.toHexString(requestCode))
-                return
-            }
-            val frag = fm.fragments[index]
-            if (frag == null) {
-                Log.w(title, "Activity result no fragment exists for index: 0x" + Integer.toHexString(requestCode))
-            } else {
-                handleResult(frag, requestCode, resultCode, data)
-            }
-            return
-        }
-    }
-
-    /**
-     * 递归调用，对所有子Fragement生效
-     *
-     * @param frag
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    private fun handleResult(frag: android.support.v4.app.Fragment, requestCode: Int, resultCode: Int,
-                             data: Intent) {
-        frag.onActivityResult(requestCode and 0xffff, resultCode, data)
-        val frags = frag.childFragmentManager.fragments
-        if (frags != null) {
-            for (f in frags!!) {
-                if (f != null)
-                    handleResult(f!!, requestCode, resultCode, data)
-            }
-        }
-    }
 }
