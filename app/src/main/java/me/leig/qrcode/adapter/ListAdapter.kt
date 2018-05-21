@@ -1,4 +1,4 @@
-package me.leig.qrcode
+package me.leig.qrcode.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

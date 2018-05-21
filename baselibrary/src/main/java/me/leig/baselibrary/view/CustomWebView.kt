@@ -12,6 +12,12 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.Toast
 import me.leig.baselibrary.R
+import me.leig.baselibrary.util.DownloadCallBack
+import me.leig.baselibrary.util.DownloadTool
+import android.R.attr.mimeType
+import android.webkit.URLUtil.guessFileName
+
+
 
 /**
  * 自定义WebView
@@ -21,13 +27,17 @@ import me.leig.baselibrary.R
  *
  */
 
-class CustomWebView  : RelativeLayout, DownloadListener {
+class CustomWebView: RelativeLayout, DownloadListener {
 
     var mContext: Context
 
-    lateinit var mWebView: WebView
+    private lateinit var mWebView: WebView
 
     lateinit var mProgressBar: ProgressBar
+
+    open var filePath = ""
+
+    open var downloadCallBack: DownloadCallBack? = null
 
     constructor(context: Context): super(context) {
         this.mContext = context
@@ -107,9 +117,15 @@ class CustomWebView  : RelativeLayout, DownloadListener {
 
     override fun onDownloadStart(url: String?, userAgent: String?, contentDisposition: String?, mimetype: String?, contentLength: Long) {
         Toast.makeText(mContext, "点击下载咯...[$url]", Toast.LENGTH_SHORT).show()
+        if ("" != filePath && null != downloadCallBack) {
+            val fileName = URLUtil.guessFileName(url, contentDisposition, mimetype)
+            val downloadTool = DownloadTool(downloadCallBack!!)
+            downloadTool.execute(url, filePath + fileName)
+        }
     }
 
     fun loadUrl(url: String) {
         mWebView.loadUrl(url)
     }
+
 }

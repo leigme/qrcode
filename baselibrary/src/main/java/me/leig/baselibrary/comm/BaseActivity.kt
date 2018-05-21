@@ -1,9 +1,7 @@
 package me.leig.baselibrary.comm
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 
 /**
  * 基础视图控制器
@@ -20,6 +18,8 @@ abstract class BaseActivity constructor(protected val title: String = BaseActivi
 
         setContentView(getLayoutId())
 
+        initData()
+
         if (null != getFragment() && 0 < getFragmentId()) {
 
             val ft = fragmentManager.beginTransaction()
@@ -34,6 +34,8 @@ abstract class BaseActivity constructor(protected val title: String = BaseActivi
     }
 
     abstract fun getLayoutId(): Int
+
+    abstract fun initData()
 
     abstract fun getFragment(): BaseFragment?
 

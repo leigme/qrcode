@@ -1,4 +1,4 @@
-package me.leig.qrcode
+package me.leig.qrcode.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,9 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_container.view.*
 import me.leig.baselibrary.comm.BaseFragment
 import me.leig.baselibrary.comm.Constant
-import me.leig.baselibrary.fragment.WebFragment
+import me.leig.qrcode.adapter.ListAdapter
+import me.leig.qrcode.adapter.ListItemListener
+import me.leig.qrcode.R
 import me.leig.zxinglibrary.ScanManager
 
 /**

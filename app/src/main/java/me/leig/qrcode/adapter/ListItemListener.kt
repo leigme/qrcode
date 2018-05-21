@@ -1,4 +1,4 @@
-package me.leig.qrcode
+package me.leig.qrcode.adapter
 
 import android.view.View
 import java.text.FieldPosition
