@@ -19,7 +19,7 @@ import me.leig.baselibrary.view.CustomWebView
 import java.io.File
 
 /**
- *
+ * 自定义内部网页
  *
  * @author leig
  * @version 20180301
