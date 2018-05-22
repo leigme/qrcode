@@ -2,6 +2,7 @@ package me.leig.baselibrary.comm
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.WindowManager
 
 /**
  * 基础视图控制器
@@ -15,22 +16,15 @@ abstract class BaseActivity constructor(protected val title: String = BaseActivi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(getLayoutId())
-
         initData()
-
+        initViews(this)
         if (null != getFragment() && 0 < getFragmentId()) {
-
             val ft = fragmentManager.beginTransaction()
-
             ft.add(getFragmentId(), getFragment()!!)
-
             ft.commit()
         }
-
-        initViews(this)
-
     }
 
     abstract fun getLayoutId(): Int

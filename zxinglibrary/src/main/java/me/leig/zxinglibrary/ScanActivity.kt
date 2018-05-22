@@ -22,13 +22,13 @@ import com.journeyapps.barcodescanner.DecoratedBarcodeView
 
 class ScanActivity: AppCompatActivity(), DecoratedBarcodeView.TorchListener {
 
-    lateinit var captureManager: CaptureManager
+    private lateinit var captureManager: CaptureManager
 
-    var isLightOn = false
+    private var isLightOn = false
 
-    lateinit var mDBV: DecoratedBarcodeView
+    private lateinit var mDBV: DecoratedBarcodeView
 
-    lateinit var switchLight: Button
+    private lateinit var switchLight: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

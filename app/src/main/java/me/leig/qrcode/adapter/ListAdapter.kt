@@ -13,7 +13,7 @@ import android.view.ViewGroup
  *
  */
 
-class ListAdapter constructor(private val context: Context, private val layoutId: Int, private val dataList: List<String>): RecyclerView.Adapter<ListViewHodler>() {
+class ListAdapter constructor(private val context: Context, private val layoutId: Int, private var dataList: List<String>): RecyclerView.Adapter<ListViewHodler>() {
 
     var listItemListener: ListItemListener? = null
 
@@ -43,5 +43,9 @@ class ListAdapter constructor(private val context: Context, private val layoutId
         })
     }
 
+    fun setDataList(dataList: List<String>) {
+        this.dataList = dataList
+        notifyDataSetChanged()
+    }
 
 }

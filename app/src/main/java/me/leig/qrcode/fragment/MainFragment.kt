@@ -1,8 +1,10 @@
 package me.leig.qrcode.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import com.google.gson.Gson
@@ -24,11 +26,18 @@ import java.io.File
  *
  */
 
-class MainFragment: BaseFragment(MainFragment::class.java.name), ListItemListener, View.OnClickListener {
+class MainFragment: BaseFragment(MainFragment::class.java.name), View.OnTouchListener, ListItemListener, View.OnClickListener {
 
     private lateinit var scanManager: ScanManager
 
+    private lateinit var listAdapter: ListAdapter
+
     private var dataList = mutableListOf<String>()
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        return true
+    }
 
     override fun getContainerId(): Int {
         return arguments.getInt(Constant.CONTENT_ID)
@@ -50,7 +59,7 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), ListItemListene
     }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
-        val listAdapter = ListAdapter(activity, R.layout.recycler_list_item, dataList)
+        listAdapter = ListAdapter(activity, R.layout.recycler_list_item, dataList)
         listAdapter.listItemListener = this
         view.rv_list.adapter = listAdapter
         view.rv_list.layoutManager = LinearLayoutManager(activity)
@@ -95,5 +104,6 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), ListItemListene
         val json = Gson().toJson(dataList)
         val file = File(activity.applicationContext.filesDir, "contents.json")
         file.writeText(json)
+        listAdapter.setDataList(dataList)
     }
 }
