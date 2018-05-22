@@ -25,6 +25,11 @@ abstract class BaseFragment constructor(protected val title: String = BaseFragme
 
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        goToOther()
+    }
+
     abstract fun getContainerId(): Int
 
     abstract fun getLayoutId(): Int
@@ -32,6 +37,8 @@ abstract class BaseFragment constructor(protected val title: String = BaseFragme
     abstract fun initData()
 
     abstract fun initView(view: View, savedInstanceState: Bundle?)
+
+    abstract fun goToOther()
 
     protected fun goToFragment(baseFragment: BaseFragment) {
         activity.fragmentManager

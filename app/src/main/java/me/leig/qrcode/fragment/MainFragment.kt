@@ -12,14 +12,14 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_container.view.*
 import me.leig.baselibrary.comm.BaseFragment
 import me.leig.baselibrary.comm.Constant
+import me.leig.qrcode.R
 import me.leig.qrcode.adapter.ListAdapter
 import me.leig.qrcode.adapter.ListItemListener
-import me.leig.qrcode.R
 import me.leig.zxinglibrary.ScanManager
 import java.io.File
 
 /**
- *
+ * 主列表视图
  *
  * @author leig
  * @version 20171231
@@ -48,22 +48,26 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), View.OnTouchLis
     }
 
     override fun initData() {
-        scanManager = ScanManager(this)
         val file = File(activity.applicationContext.filesDir, "contents.json")
         if (file.exists()) {
             val clazz = object : TypeToken<MutableList<String>>() {}.type
             dataList = Gson().fromJson(file.readText(), clazz)
-        } else {
-            scanManager.start()
         }
     }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
+        scanManager = ScanManager(this)
         listAdapter = ListAdapter(activity, R.layout.recycler_list_item, dataList)
         listAdapter.listItemListener = this
         view.rv_list.adapter = listAdapter
         view.rv_list.layoutManager = LinearLayoutManager(activity)
         view.btn_scan.setOnClickListener(this)
+    }
+
+    override fun goToOther() {
+        if (0 == dataList.size) {
+            scanManager.start()
+        }
     }
 
     // 回调:
