@@ -13,7 +13,7 @@ import java.util.jar.Attributes
  *
  */
 
-class CustionProgressBar: ProgressBar {
+class CustomProgressBar: ProgressBar {
 
     constructor(context: Context): super(context)
 

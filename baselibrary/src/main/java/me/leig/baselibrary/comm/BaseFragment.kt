@@ -20,7 +20,9 @@ abstract class BaseFragment constructor(protected val title: String = BaseFragme
 
         val view = inflater!!.inflate(getLayoutId(), container, false)
 
-        initViews(view, savedInstanceState)
+        initData()
+
+        initView(view, savedInstanceState)
 
         return view
 
@@ -30,7 +32,9 @@ abstract class BaseFragment constructor(protected val title: String = BaseFragme
 
     abstract fun getLayoutId(): Int
 
-    abstract fun initViews(view: View, savedInstanceState: Bundle?)
+    abstract fun initData()
+
+    abstract fun initView(view: View, savedInstanceState: Bundle?)
 
     protected fun goToFragment(baseFragment: BaseFragment) {
         activity.fragmentManager

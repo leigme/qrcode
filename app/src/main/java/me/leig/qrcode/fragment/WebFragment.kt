@@ -38,7 +38,11 @@ class WebFragment: BaseFragment(WebFragment::class.java.name), DownloadCallBack 
         return R.layout.fragment_web
     }
 
-    override fun initViews(view: View, savedInstanceState: Bundle?) {
+    override fun initData() {
+        Log.i(tag, "初始化数据")
+    }
+
+    override fun initView(view: View, savedInstanceState: Bundle?) {
         val bundle = arguments
         if (null != bundle) {
             val url = bundle.getString("URL")

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_container.view.*
 import me.leig.baselibrary.comm.BaseFragment
 import me.leig.baselibrary.comm.Constant
@@ -12,6 +14,7 @@ import me.leig.qrcode.adapter.ListAdapter
 import me.leig.qrcode.adapter.ListItemListener
 import me.leig.qrcode.R
 import me.leig.zxinglibrary.ScanManager
+import java.io.File
 
 /**
  *
@@ -25,7 +28,7 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), ListItemListene
 
     private lateinit var scanManager: ScanManager
 
-    private val dataList = mutableListOf<String>()
+    private var dataList = mutableListOf<String>()
 
     override fun getContainerId(): Int {
         return arguments.getInt(Constant.CONTENT_ID)
@@ -35,8 +38,18 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), ListItemListene
         return R.layout.fragment_container
     }
 
-    override fun initViews(view: View, savedInstanceState: Bundle?) {
+    override fun initData() {
         scanManager = ScanManager(this)
+        val file = File(activity.applicationContext.filesDir, "contents.json")
+        if (file.exists()) {
+            val clazz = object : TypeToken<MutableList<String>>() {}.type
+            dataList = Gson().fromJson(file.readText(), clazz)
+        } else {
+            scanManager.start()
+        }
+    }
+
+    override fun initView(view: View, savedInstanceState: Bundle?) {
         val listAdapter = ListAdapter(activity, R.layout.recycler_list_item, dataList)
         listAdapter.listItemListener = this
         view.rv_list.adapter = listAdapter
@@ -53,7 +66,7 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), ListItemListene
             return
         }
         Toast.makeText(activity, "扫描成功了: $contents", Toast.LENGTH_SHORT).show()
-        dataList.add(contents)
+        saveData(contents)
     }
 
     override fun onClick(v: View?) {
@@ -75,5 +88,12 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), ListItemListene
         bundle.putString("URL", dataList[position])
         web.arguments = bundle
         goToFragment(web)
+    }
+
+    private fun saveData(contents: String) {
+        dataList.add(contents)
+        val json = Gson().toJson(dataList)
+        val file = File(activity.applicationContext.filesDir, "contents.json")
+        file.writeText(json)
     }
 }
