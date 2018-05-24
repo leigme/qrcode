@@ -39,7 +39,7 @@ class WebFragment: BaseFragment(WebFragment::class.java.name), DownloadCallBack 
     }
 
     override fun initData() {
-        Log.i(tag, "初始化数据")
+        Log.i(title, "初始化数据")
     }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
@@ -48,10 +48,10 @@ class WebFragment: BaseFragment(WebFragment::class.java.name), DownloadCallBack 
             val url = bundle.getString("URL")
             if (null != url && "" != url) {
                 val cwc = view.findViewById(R.id.cw_content) as CustomWebView
+                cwc.downloadCallBack = this
                 cwc.loadUrl(url)
                 val filePath = Environment.getExternalStorageDirectory().absolutePath + "/qrcode/"
                 cwc.filePath = filePath
-                cwc.downloadCallBack = this
                 mProgressBar = view.findViewById(R.id.pb_download) as ProgressBar
             }
         }
@@ -59,12 +59,12 @@ class WebFragment: BaseFragment(WebFragment::class.java.name), DownloadCallBack 
 
     override fun downloadStart() {
         mProgressBar!!.visibility = View.VISIBLE
-        Log.i(tag, "下载开始咯...")
+        Log.i(title, "下载开始咯...")
     }
 
-    override fun downloading(num: Int, total: Int) {
-        mProgressBar!!.progress = num / total
-        Log.d(tag, "下载进行中: $num / $total")
+    override fun downloading(num: Int) {
+        mProgressBar!!.progress = num
+        Log.i(title, "下载进行中: $num")
     }
 
     override fun downloadEnd(path: String) {
@@ -72,7 +72,7 @@ class WebFragment: BaseFragment(WebFragment::class.java.name), DownloadCallBack 
         if ("application/vnd.android.package-archive" == getMIMEType(path)) {
             install(activity, path)
         }
-        Log.i(tag, "下载结束了: $path")
+        Log.i(title, "下载结束了: $path")
     }
 
     private fun getMIMEType(url: String): String {

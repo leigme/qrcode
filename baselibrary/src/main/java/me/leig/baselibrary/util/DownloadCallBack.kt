@@ -9,6 +9,6 @@ package me.leig.baselibrary.util
  */
 interface DownloadCallBack {
     fun downloadStart()
-    fun downloading(num: Int, total: Int)
+    fun downloading(num: Int)
     fun downloadEnd(path: String)
 }

@@ -64,7 +64,7 @@ class DownloadTool constructor(
                     }
                     ops.write(buffer, 0, len)
                     num += len
-                    downloadCallBack.downloading(num, total)
+                    downloadCallBack.downloading(downloading(num, total))
                 }
                 ops.flush()
                 return true
@@ -88,5 +88,10 @@ class DownloadTool constructor(
     override fun onPostExecute(result: Boolean?) {
         downloadCallBack.downloadEnd(destPath)
         Log.i(tag, "下载完成")
+    }
+
+    private fun downloading(num: Int, total: Int): Int {
+        val result = num.toDouble() / total.toDouble() * 100
+        return result.toInt()
     }
 }

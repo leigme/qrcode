@@ -62,17 +62,17 @@ class MainFragment: BaseFragment(MainFragment::class.java.name), View.OnTouchLis
         view.rv_list.adapter = listAdapter
         view.rv_list.layoutManager = LinearLayoutManager(activity)
         view.btn_scan.setOnClickListener(this)
-    }
-
-    override fun goToOther() {
         if (0 == dataList.size) {
             scanManager.start()
         }
     }
 
     // 回调:
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (null == data) {
+            return
+        }
         val contents = scanManager.callBack(requestCode, resultCode, data)
         if (null == contents) {
             Toast.makeText(activity, "扫描失败咯...", Toast.LENGTH_SHORT).show()
